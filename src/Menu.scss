@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  color: #bbb;
+  font-family: "Montserrat", sans-serif;
+}
+
+@mixin flexcol($gap: 2rem) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
+.selectionMenu {
+  @include flexcol();
+  padding: 0.7rem;
+  position: absolute;
+  height: 100%;
+  width: 80%;
+  max-width: 250px;
+  background: transparent;
+  z-index: 12;
+}
+
+.viewOptions {
+  @include flexcol(0.5rem);
+  & input {
+    margin: 0 0.4rem;
+  }
+}
+
+.planetSpotlight {
+  @include flexcol(1rem);
+}
+

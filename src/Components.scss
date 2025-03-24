@@ -1,0 +1,124 @@
+button {
+  background: none;
+  text-align: start;
+  border: none;
+  cursor: pointer;
+  min-width: min-content;
+  width: 100px;
+  opacity: 30%;
+  transition-duration: .2s;
+  color:#FFF;
+
+  &.active {
+    opacity: 100%;
+  }
+
+  &:hover {
+    text-shadow: 0 0 5px #555;
+  }
+}
+
+label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition-duration: .3s;
+  &:hover {
+    color: white;
+  }
+}
+
+.toggle {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+  width: 50px;
+  height: 26px;
+  & input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  border-radius: 34px;
+  outline: 2px solid #555;
+
+  &::before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background: radial-gradient(circle at top left, white 10%, black 70%);
+    border-radius: 50%;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+  }
+
+  &:hover {
+    outline: 2px solid #888;
+  }
+}
+
+input:checked + .slider {
+  background-color: #0A0A0A
+}
+
+input:checked + .slider::before {
+  -webkit-transform: translateX(24px);
+  -ms-transform: translateX(24px);
+  transform: translateX(24px);
+  background: radial-gradient(circle at top left, white 25%, black 75%);
+}
+
+.radio {
+  position: relative;
+  margin: 0 10px;
+  & input {
+    opacity: 0;
+    height: 0;
+    width: 0;
+  }
+}
+
+.radioCheck {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  height: 18px;
+  width: 18px;
+  border-radius: 18px;
+}
+
+input:checked + .radioCheck {
+  height: 18px;
+  width: 18px;
+  content: "";
+  border-radius: 15px;
+  border: none;
+  animation: radio-grow .2s   ;
+  background: radial-gradient(circle at top left, white 10%, black 70%);
+}
+
+@keyframes radio-grow {
+  from {
+    scale: 0;
+  } to {
+    scale: 1;
+  }
+}

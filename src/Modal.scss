@@ -1,0 +1,40 @@
+.modalBox {
+  position: fixed;
+  width: 60%;
+  max-width: 350px;
+  height: 100vh;
+  background: #000000b0;
+  padding: 10px;
+  border-radius: 4px 4px 4px;
+  top: 0;
+  right: 0;
+  box-shadow: -8px 0 16px #000000b0;
+  display: block;
+  overflow-y: auto;
+}
+
+.modalTitle {
+  padding-block: 8px;
+  font-size: 3rem;
+}
+
+.modalSubtitle {
+  padding-block: 8px;
+}
+
+.modalBox table {
+  width: 100%;
+  text-transform: uppercase;
+  border-collapse: collapse;
+  font-size: .8rem;
+  margin: 45px 0;
+  & tr {
+    border-bottom: 1px solid black;
+    & th, td {
+      padding: 4px;
+    }
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}

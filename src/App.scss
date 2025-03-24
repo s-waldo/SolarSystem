@@ -1,0 +1,346 @@
+@use "sass:string";
+@use "sass:math";
+
+// star function
+@function multiple-box-shadow($number_of_stars, $color: #fff) {
+  $value: "#{math.random($limit: 2000)}px #{math.random($limit: 2000)}px #{$color}";
+  @for $i from 2 through $number_of_stars {
+    $value: "#{$value}, #{math.random($limit: 3000)}px #{math.random($limit: 2000)}px #{$color}";
+  }
+  @return string.unquote($value);
+}
+
+* {
+  transition-duration: 0.2s;
+}
+
+body {
+  overflow: hidden;
+}
+
+$shadows-small: multiple-box-shadow(2000, #afafaf);
+$shadows-small-alt: multiple-box-shadow(2000, rgb(141, 94, 0));
+$shadows-medium: multiple-box-shadow(900, #5c5c5c);
+$shadows-large: multiple-box-shadow(60, rgb(255, 255, 255));
+
+.starLayer {
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+#smStars1 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  background: transparent;
+  box-shadow: $shadows-small;
+}
+
+#smStars2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  background: transparent;
+  box-shadow: $shadows-small-alt;
+}
+
+#mdStars {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  background: transparent;
+  box-shadow: $shadows-medium;
+}
+
+#lgStars {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: $shadows-large;
+}
+
+// Solar System classes
+
+@keyframes orbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateAnchor {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+@keyframes scaledInvert {
+  from {
+    transform: scale3d(0.15, 0.15, 0.15) rotateX(-90deg) rotateY(0deg)
+      rotateZ(0deg);
+  }
+  to {
+    transform: scale3d(0.15, 0.15, 0.15) rotateX(-90deg) rotateY(360deg)
+      rotateZ(0deg);
+  }
+}
+
+@mixin planetColor($color: white) {
+  background: radial-gradient(circle at right, $color, 60%, #0a0a0a 70%);
+}
+
+@mixin planetScale($scale: 1) {
+  transform: rotateX(-90deg) scale3d($scale, $scale, $scale);
+}
+
+.solarSystem {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transition-duration: 1s;
+  transform: rotateX(75deg);
+  transform-style: preserve-3d;
+}
+
+.object {
+  background-color: transparent;
+  border: 1px solid #1b1b1b;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  translate: -50% -50%;
+  transform-style: preserve-3d;
+}
+
+.planetAnchor {
+  height: 1px;
+  width: 1px;
+  background: wheat;
+  position: absolute;
+  translate: -50% -50%;
+  top: 50%;
+  left: initial;
+  transform-style: preserve-3d;
+}
+
+.planet {
+  @include planetScale(0.2);
+  transition-duration: 0.2s;
+  position: absolute;
+  top: 50%;
+  // left: 5px;
+  translate: -50% -50%;
+  border-radius: 50%;
+  left: initial;
+  transform-style: preserve-3d;
+}
+
+#sun {
+  position: absolute;
+  top: 0;
+  right: 50;
+  translate: -50% -50%;
+  height: 109rem;
+  width: 109rem;
+  @include planetScale(0.1);
+  background-color: #ffdd50;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ffdd50, 0 0 25px #ffdd50, 0 0 80px #ffdd50;
+  .up {
+    position: absolute;
+    z-index: 105;
+    overflow: hidden;
+    border-radius: 100rem 100rem 0 0;
+    height: 50%;
+    width: 100%;
+    background-color: inherit;
+  }
+}
+
+#mercury {
+  height: 200px;
+  width: 200px;
+  animation-duration: 14.4s;
+  .planet {
+    @include planetColor(#6b3f22);
+    height: 0.4rem;
+    width: 0.4rem;
+    animation-duration: inherit;
+  }
+}
+
+#venus {
+  height: 250px;
+  width: 250px;
+  animation-duration: 37.25s;
+  .planet {
+    @include planetColor(#8d772f);
+    height: 0.9rem;
+    width: 0.9rem;
+    animation-duration: inherit;
+  }
+}
+
+#earth {
+  height: 300px;
+  width: 300px;
+  animation-duration: 60s;
+  .planet {
+    @include planetColor(#285274);
+    height: 1rem;
+    width: 1rem;
+    animation-duration: inherit;
+  }
+}
+
+#mars {
+  height: 400px;
+  width: 400px;
+  animation-duration: 112s;
+  .planet {
+    @include planetColor(#862b06);
+    height: 0.5rem;
+    width: 0.5rem;
+    animation-duration: inherit;
+  }
+}
+
+#jupiter {
+  height: 600px;
+  width: 600px;
+  animation-duration: 711.6s;
+  & .planet {
+    @include planetColor(#ac5634);
+    height: 10.97rem;
+    width: 10.97rem;
+    animation-duration: inherit;
+  }
+}
+
+#saturn {
+  height: 800px;
+  width: 800px;
+  animation-duration: 1764s;
+  .planet {
+    @include planetColor(#b89d45);
+    position: relative;
+    height: 9.1rem;
+    width: 9.1rem;
+    animation-duration: inherit;
+    .rings {
+      // Rings
+      position: absolute;
+      content: "";
+      height: 235%;
+      width: 235%;
+      top: 50%;
+      left: 50%;
+      border-radius: 50%;
+      translate: -50% -50%;
+      background-color: white;
+      background: radial-gradient(transparent 50%, #b89d45 60%, #dfa935 100%);
+      transform: rotateX(90deg) rotateY(-10deg);
+    }
+  }
+}
+
+#uranus {
+  height: 1100px;
+  width: 1100px;
+  animation-duration: 5025s;
+  .planet {
+    animation-duration: inherit;
+    @include planetColor(#061386);
+    height: 4rem;
+    width: 4rem;
+  }
+}
+
+#neptune {
+  height: 1400px;
+  width: 1400px;
+  animation-duration: 9822s;
+  .planet {
+    animation-duration: inherit;
+    @include planetColor(#068646);
+    height: 3.8rem;
+    width: 3.8rem;
+  }
+}
+
+.size {
+  #sun {
+    @include planetScale(0.15);
+  }
+
+  #mercury,
+  #venus {
+    scale: 1.5;
+  }
+  #earth {
+    scale: 1.4;
+  }
+  #mars {
+    scale: 1.2;
+  }
+}
+
+.speed .object {
+  animation: orbit linear infinite;
+}
+.solarSystem {
+  &.size .planet {
+    @include planetScale(0.15);
+  }
+  &.speed .planetAnchor {
+    animation: rotateAnchor linear infinite;
+    animation-duration: inherit;
+  }
+}
+
+.distance {
+  @mixin distance($distanceInAU: 1rem) {
+    height: calc(150px + $distanceInAU * 4);
+    width: calc(150px + $distanceInAU * 4);
+  }
+
+  #mercury {
+    @include distance(0.39rem);
+  }
+
+  #venus {
+    @include distance(0.72rem);
+  }
+
+  #earth {
+    @include distance(1rem);
+  }
+
+  #mars {
+    @include distance(1.52rem);
+  }
+
+  #jupiter {
+    @include distance(5.2rem);
+  }
+
+  #saturn {
+    @include distance(9.54rem);
+  }
+
+  #uranus {
+    @include distance(19.2rem);
+  }
+
+  #neptune {
+    @include distance(30rem);
+  }
+}
